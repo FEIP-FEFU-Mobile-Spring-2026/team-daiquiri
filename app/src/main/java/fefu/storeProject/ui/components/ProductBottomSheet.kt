@@ -92,7 +92,7 @@ fun ProductBottomSheet(
 
             Text("Размер:", fontWeight = FontWeight.Bold)
             SizeSelector(
-                sizes = Size.values().toList(),
+                sizes = Size.entries.toList(),
                 selected = selectedSize,
                 onSelect = { selectedSize = it }
             )

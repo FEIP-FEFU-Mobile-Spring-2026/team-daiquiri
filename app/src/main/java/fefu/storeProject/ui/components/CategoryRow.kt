@@ -27,7 +27,7 @@ fun CategoryRow(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         modifier = Modifier.padding(vertical = 16.dp)
     ) {
-        items(Category.values()) { category ->
+        items(Category.entries) { category ->
             CategoryChip(
                 text = getCategoryName(category),
                 isSelected = selectedCategory == category,

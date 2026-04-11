@@ -2,6 +2,7 @@ package fefu.storeProject.data
 
 import fefu.storeProject.R
 import androidx.compose.ui.graphics.Color
+import fefu.storeProject.ui.theme.BrownPrimary
 
 data class Product(
     val id: Int,
@@ -34,7 +35,7 @@ val availableColors = listOf(
     ProductColor("Черный", Color.Black),
     ProductColor("Белый", Color.White),
     ProductColor("Серый", Color.Gray),
-    ProductColor("Коричневый", Color(0xFF6D4C41)),
+    ProductColor("Коричневый", BrownPrimary),
     ProductColor("Бежевый", Color(0xFFD7CCC8)),
     ProductColor("Темно-синий", Color(0xFF1A237E))
 )

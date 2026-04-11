@@ -23,6 +23,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import fefu.storeProject.ui.theme.BrownPrimary
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -109,7 +110,7 @@ fun ProductBottomSheet(
 
             Button(
                 modifier = Modifier.fillMaxWidth(),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF6D4C41)),
+                colors = ButtonDefaults.buttonColors(containerColor = BrownPrimary),
                 onClick = {
                     cartViewModel.addToCart(product, selectedSize, selectedColor)
                     onAddToCart()

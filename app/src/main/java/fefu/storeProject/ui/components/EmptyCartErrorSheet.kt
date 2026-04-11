@@ -18,7 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import fefu.storeProject.ui.theme.BrownPrimary
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -58,7 +58,7 @@ fun EmptyCartErrorSheet(
             Button(
                 onClick = onBlastContractClick,
                 modifier = Modifier.fillMaxWidth(),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF6D4C41))
+                colors = ButtonDefaults.buttonColors(containerColor = BrownPrimary)
             ) {
                 Text("Разрываем контракт")
             }

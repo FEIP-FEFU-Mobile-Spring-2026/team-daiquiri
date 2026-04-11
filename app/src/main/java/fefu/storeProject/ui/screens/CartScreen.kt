@@ -26,7 +26,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import fefu.storeProject.ui.theme.BrownPrimary
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -88,7 +88,7 @@ fun CartScreen(cartViewModel: CartViewModel = viewModel(), navController: NavHos
                     }
                 },
                 modifier = Modifier.fillMaxWidth(),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF6D4C41))
+                colors = ButtonDefaults.buttonColors(containerColor = BrownPrimary)
             ) {
                 Text(text = "Перейти к оформлению")
             }

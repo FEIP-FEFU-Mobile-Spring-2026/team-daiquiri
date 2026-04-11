@@ -13,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import fefu.storeProject.ui.theme.BrownPrimary
 import androidx.compose.ui.unit.dp
 import fefu.storeProject.data.Category
 
@@ -45,7 +46,7 @@ fun CategoryChip(
     Box(
         modifier = Modifier
             .background(
-                color = if (isSelected) Color(0xFF6D4C41) else Color(0xFFF5F5F5),
+                color = if (isSelected) BrownPrimary else Color(0xFFF5F5F5),
                 shape = RoundedCornerShape(16.dp)
             )
             .clickable { onClick() }

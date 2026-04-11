@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import fefu.storeProject.ui.theme.BrownPrimary
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
@@ -34,7 +35,7 @@ fun PriceButton(
         Text(
             text = "$price ₽",
             fontWeight = FontWeight.Medium,
-            color = Color(0xFF6D4C41)
+            color = BrownPrimary
         )
     }
 }

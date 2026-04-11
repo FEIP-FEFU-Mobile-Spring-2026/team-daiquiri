@@ -9,6 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import fefu.storeProject.ui.theme.BrownPrimary
 import androidx.compose.ui.unit.dp
 import fefu.storeProject.data.Size
 
@@ -25,7 +26,7 @@ fun SizeSelector(
                 modifier = Modifier
                     .padding(6.dp)
                     .background(
-                        if (size == selected) Color(0xFF6D4C41) else Color.LightGray,
+                        if (size == selected) BrownPrimary else Color.LightGray,
                         RoundedCornerShape(12.dp)
                     )
                     .clickable { onSelect(size) }

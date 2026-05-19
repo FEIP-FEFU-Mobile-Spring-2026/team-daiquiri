@@ -16,7 +16,6 @@ class CartViewModel : ViewModel() {
         return _items[cartItem] ?: 0
     }
 
-    // New helper for ProductList
     fun getProductTotalCount(product: Product): Int {
         return _items.filter { it.key.product.id == product.id }.values.sum()
     }
@@ -39,8 +38,8 @@ class CartViewModel : ViewModel() {
         increment(cartItem)
     }
 
-    fun getTotalPrice(): Int {
-        return _items.entries.sumOf { it.key.product.price * it.value }
+    fun getTotalPrice(): Long {
+        return _items.entries.sumOf { it.key.product.priceInKopecks * it.value } / 100
     }
 
     fun clearCart() {

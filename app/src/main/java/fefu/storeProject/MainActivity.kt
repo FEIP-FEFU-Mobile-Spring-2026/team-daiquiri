@@ -1,5 +1,6 @@
 package fefu.storeProject
 
+import android.app.Application
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -8,7 +9,10 @@ import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -17,6 +21,7 @@ import fefu.storeProject.ui.screens.CartScreen
 import fefu.storeProject.ui.screens.MainScreen
 import fefu.storeProject.ui.theme.StoreProjectTheme
 import fefu.storeProject.viewmodel.CartViewModel
+import fefu.storeProject.viewmodel.CatalogViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +31,16 @@ class MainActivity : ComponentActivity() {
             StoreProjectTheme {
                 val navController = rememberNavController()
                 val cartViewModel: CartViewModel = viewModel()
+                val catalogViewModel: CatalogViewModel = viewModel(
+                    factory = viewModelFactory {
+                        initializer {
+                            CatalogViewModel(
+                                this[APPLICATION_KEY] as Application,
+                                createSavedStateHandle()
+                            )
+                        }
+                    }
+                )
                 Scaffold(
                     bottomBar = { BottomBar(navController = navController, cartViewModel = cartViewModel) }
                 ) { padding ->
@@ -36,7 +51,7 @@ class MainActivity : ComponentActivity() {
                         enterTransition = { EnterTransition.None },
                         exitTransition = { ExitTransition.None },
                     ) {
-                        composable("main") { MainScreen(navController, cartViewModel) }
+                        composable("main") { MainScreen(navController, cartViewModel, catalogViewModel) }
                         composable("cart") { CartScreen(cartViewModel, navController) }
                     }
                 }

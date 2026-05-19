@@ -13,25 +13,26 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import fefu.storeProject.ui.theme.BrownPrimary
 import androidx.compose.ui.unit.dp
-import fefu.storeProject.data.Category
+import fefu.storeProject.data.AppCategory
+import fefu.storeProject.ui.theme.BrownPrimary
 
 @Composable
 fun CategoryRow(
-    selectedCategory: Category,
-    onCategorySelected: (Category) -> Unit
+    categories: List<AppCategory>,
+    selectedCategoryId: String,
+    onCategorySelected: (String) -> Unit
 ) {
     LazyRow(
         contentPadding = PaddingValues(horizontal = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         modifier = Modifier.padding(vertical = 16.dp)
     ) {
-        items(Category.entries) { category ->
+        items(categories) { category ->
             CategoryChip(
-                text = getCategoryName(category),
-                isSelected = selectedCategory == category,
-                onClick = { onCategorySelected(category) }
+                text = category.name,
+                isSelected = selectedCategoryId == category.id,
+                onClick = { onCategorySelected(category.id) }
             )
         }
     }
@@ -56,16 +57,5 @@ fun CategoryChip(
             text = text,
             color = if (isSelected) Color.White else Color.Black
         )
-    }
-}
-
-fun getCategoryName(category: Category): String {
-    return when (category) {
-        Category.NEW -> "Новинки"
-        Category.JEANS -> "Джинсы"
-        Category.TSHIRTS -> "Футболки"
-        Category.DRESSES -> "Платья"
-        Category.OUTERWEAR -> "Верхняя одежда"
-        Category.HOODIES -> "Худи"
     }
 }

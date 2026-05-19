@@ -1,6 +1,5 @@
 package fefu.storeProject.ui.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,16 +22,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import fefu.storeProject.ui.theme.BrownPrimary
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import fefu.storeProject.data.Category
+import coil.compose.AsyncImage
 import fefu.storeProject.data.Product
 import fefu.storeProject.data.Size
 import fefu.storeProject.data.availableColors
+import fefu.storeProject.data.formatRubles
+import fefu.storeProject.ui.theme.BrownPrimary
 import fefu.storeProject.viewmodel.CartViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -57,14 +56,14 @@ fun ProductBottomSheet(
                     .fillMaxWidth()
                     .height(200.dp)
             ) {
-                Image(
-                    painter = painterResource(product.imageRes),
+                AsyncImage(
+                    model = product.imageUrl,
                     contentDescription = null,
                     contentScale = ContentScale.Fit,
                     modifier = Modifier.fillMaxSize()
                 )
 
-                if (product.categories.contains(Category.NEW)) {
+                if (product.tags.contains("New")) {
                     Box(
                         modifier = Modifier
                             .align(Alignment.TopStart)
@@ -85,8 +84,8 @@ fun ProductBottomSheet(
                 }
             }
 
-            Text(product.title, fontWeight = FontWeight.Bold, fontSize = 20.sp)
-            Text(product.description, color = Color.Gray)
+            Text(product.name, fontWeight = FontWeight.Bold, fontSize = 20.sp)
+            Text(product.longDescription, color = Color.Gray)
 
             Spacer(Modifier.height(16.dp))
 
@@ -116,7 +115,7 @@ fun ProductBottomSheet(
                     onAddToCart()
                 }
             ) {
-                Text("В корзину · ${product.price} ₽")
+                Text("В корзину · ${formatRubles(product.priceInKopecks)}")
             }
         }
     }

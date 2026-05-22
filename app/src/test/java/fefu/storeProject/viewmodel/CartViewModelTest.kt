@@ -23,7 +23,11 @@ class CartViewModelTest {
         imageUrl = "",
         tags = emptyList(),
         categoryId = "",
-        sizes = emptyList()
+        sizes = emptyList(),
+        material = "",
+        weight = "",
+        season = "",
+        countryOfOrigin = ""
     )
 
     private val product2 = Product(
@@ -35,7 +39,11 @@ class CartViewModelTest {
         imageUrl = "",
         tags = emptyList(),
         categoryId = "",
-        sizes = emptyList()
+        sizes = emptyList(),
+        material = "",
+        weight = "",
+        season = "",
+        countryOfOrigin = ""
     )
 
     private val color = ProductColor("Black", Color.Black)

@@ -14,7 +14,11 @@ data class Product(
     val imageUrl: String,
     val tags: List<String>,
     val categoryId: String,
-    val sizes: List<String>
+    val sizes: List<String>,
+    val material: String,
+    val weight: String,
+    val season: String,
+    val countryOfOrigin: String
 )
 
 data class AppCategory(

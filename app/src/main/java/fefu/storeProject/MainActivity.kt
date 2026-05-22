@@ -17,6 +17,7 @@ import fefu.storeProject.ui.screens.CartScreen
 import fefu.storeProject.ui.screens.MainScreen
 import fefu.storeProject.ui.theme.StoreProjectTheme
 import fefu.storeProject.viewmodel.CartViewModel
+import fefu.storeProject.viewmodel.CatalogViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +27,7 @@ class MainActivity : ComponentActivity() {
             StoreProjectTheme {
                 val navController = rememberNavController()
                 val cartViewModel: CartViewModel = viewModel()
+                val catalogViewModel: CatalogViewModel = viewModel()
                 Scaffold(
                     bottomBar = { BottomBar(navController = navController, cartViewModel = cartViewModel) }
                 ) { padding ->
@@ -36,7 +38,7 @@ class MainActivity : ComponentActivity() {
                         enterTransition = { EnterTransition.None },
                         exitTransition = { ExitTransition.None },
                     ) {
-                        composable("main") { MainScreen(navController, cartViewModel) }
+                        composable("main") { MainScreen(navController, cartViewModel, catalogViewModel) }
                         composable("cart") { CartScreen(cartViewModel, navController) }
                     }
                 }

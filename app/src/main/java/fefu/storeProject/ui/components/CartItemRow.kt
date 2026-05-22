@@ -1,6 +1,5 @@
 package fefu.storeProject.ui.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,13 +18,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import fefu.storeProject.ui.theme.BrownPrimary
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import fefu.storeProject.data.CartItem
+import fefu.storeProject.data.formatRubles
+import fefu.storeProject.ui.theme.BrownPrimary
 import fefu.storeProject.viewmodel.CartViewModel
 
 @Composable
@@ -40,15 +42,18 @@ fun CartItemRow(
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Image(
-            painter = painterResource(id = cartItem.product.imageRes),
+        AsyncImage(
+            model = cartItem.product.imageUrl,
             contentDescription = null,
-            modifier = Modifier.size(80.dp)
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .size(80.dp)
+                .clip(RoundedCornerShape(8.dp))
         )
         Spacer(modifier = Modifier.width(16.dp))
         Column(modifier = Modifier.weight(1f)) {
             Text(
-                text = cartItem.product.title,
+                text = cartItem.product.name,
                 fontWeight = FontWeight.Bold
             )
             Text(
@@ -61,7 +66,7 @@ fun CartItemRow(
                     .padding(horizontal = 16.dp, vertical = 8.dp)
             ) {
                 Text(
-                    text = "${cartItem.product.price} ₽",
+                    text = formatRubles(cartItem.product.priceInKopecks),
                     fontWeight = FontWeight.Medium,
                     color = BrownPrimary
                 )

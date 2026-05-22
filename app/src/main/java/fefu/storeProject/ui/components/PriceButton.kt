@@ -11,13 +11,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import fefu.storeProject.ui.theme.BrownPrimary
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import fefu.storeProject.data.formatRubles
+import fefu.storeProject.ui.theme.BrownPrimary
 
 @Composable
 fun PriceButton(
-    price: Int,
+    priceInKopecks: Long,
     onClick: () -> Unit
 ) {
     Box(
@@ -33,7 +34,7 @@ fun PriceButton(
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = "$price ₽",
+            text = formatRubles(priceInKopecks),
             fontWeight = FontWeight.Medium,
             color = BrownPrimary
         )

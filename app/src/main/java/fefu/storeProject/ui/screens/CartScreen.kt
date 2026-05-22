@@ -26,13 +26,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import fefu.storeProject.ui.theme.BrownPrimary
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import fefu.storeProject.ui.components.CartItemRow
 import fefu.storeProject.ui.components.CheckoutSuccessSheet
 import fefu.storeProject.ui.components.EmptyCartErrorSheet
+import fefu.storeProject.ui.theme.BrownPrimary
 import fefu.storeProject.viewmodel.CartViewModel
 import kotlinx.coroutines.launch
 
@@ -77,7 +77,7 @@ fun CartScreen(cartViewModel: CartViewModel = viewModel(), navController: NavHos
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(text = "Итого")
-                Text(text = "${cartViewModel.getTotalPrice()} Р")
+                Text(text = "${cartViewModel.getTotalPrice()} ₽")
             }
             Button(
                 onClick = {

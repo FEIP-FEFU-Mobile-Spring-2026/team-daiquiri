@@ -15,21 +15,27 @@ class CartViewModelTest {
     private lateinit var viewModel: CartViewModel
 
     private val product1 = Product(
-        id = 1,
-        title = "Product 1",
-        description = "Description",
-        price = 100,
-        imageRes = 0,
-        categories = emptySet()
+        id = "1",
+        name = "Product 1",
+        shortDescription = "Short description",
+        longDescription = "Long description",
+        priceInKopecks = 10000L,
+        imageUrl = "",
+        tags = emptyList(),
+        categoryId = "",
+        sizes = emptyList()
     )
 
     private val product2 = Product(
-        id = 2,
-        title = "Product 2",
-        description = "Description",
-        price = 200,
-        imageRes = 0,
-        categories = emptySet()
+        id = "2",
+        name = "Product 2",
+        shortDescription = "Short description",
+        longDescription = "Long description",
+        priceInKopecks = 20000L,
+        imageUrl = "",
+        tags = emptyList(),
+        categoryId = "",
+        sizes = emptyList()
     )
 
     private val color = ProductColor("Black", Color.Black)
@@ -44,27 +50,27 @@ class CartViewModelTest {
 
     @Test
     fun getTotalPrice_emptyCart_returnsZero() {
-        assertEquals(0, viewModel.getTotalPrice())
+        assertEquals(0L, viewModel.getTotalPrice())
     }
 
     @Test
     fun getTotalPrice_singleItem_returnsItemPrice() {
         viewModel.addToCart(product1, size, color)
-        assertEquals(100, viewModel.getTotalPrice())
+        assertEquals(100L, viewModel.getTotalPrice())
     }
 
     @Test
     fun getTotalPrice_sameItemAddedTwice_returnsDoubledPrice() {
         viewModel.addToCart(product1, size, color)
         viewModel.addToCart(product1, size, color)
-        assertEquals(200, viewModel.getTotalPrice())
+        assertEquals(200L, viewModel.getTotalPrice())
     }
 
     @Test
     fun getTotalPrice_differentProducts_returnsSumOfPrices() {
         viewModel.addToCart(product1, size, color)
         viewModel.addToCart(product2, size, color)
-        assertEquals(300, viewModel.getTotalPrice())
+        assertEquals(300L, viewModel.getTotalPrice())
     }
 
     // addToCart

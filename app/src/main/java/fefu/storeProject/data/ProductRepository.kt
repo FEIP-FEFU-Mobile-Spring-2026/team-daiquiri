@@ -39,7 +39,11 @@ class ProductRepository(private val context: Context) {
                 imageUrl = obj.getString("imageUrl"),
                 tags = tags,
                 categoryId = obj.getString("categoryId"),
-                sizes = sizes
+                sizes = sizes,
+                material = obj.getString("material"),
+                weight = obj.getString("weight"),
+                season = obj.getString("season"),
+                countryOfOrigin = obj.getString("countryOfOrigin")
             )
         }
 

@@ -87,7 +87,7 @@ fun MainScreen(
                 HorizontalDivider()
                 ProductList(
                     products = state.products,
-                    onPriceClick = {
+                    onItemClick = {
                         selectedProduct = it
                         isSheetOpen = true
                     },
@@ -100,8 +100,7 @@ fun MainScreen(
     if (isSheetOpen && selectedProduct != null) {
         ProductBottomSheet(
             product = selectedProduct,
-            cartViewModel = cartViewModel,
-            onAddToCart = { isSheetOpen = false }
+            onDismiss = { isSheetOpen = false }
         )
     }
 }

@@ -1,5 +1,6 @@
 package fefu.storeProject.ui.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
@@ -26,12 +27,13 @@ import fefu.storeProject.data.Product
 fun ProductItem(
     product: Product,
     count: Int,
-    onPriceClick: () -> Unit,
+    onItemClick: () -> Unit,
     onIncrement: () -> Unit,
     onDecrement: () -> Unit
 ) {
     Row(
         modifier = Modifier
+            .clickable { onItemClick() }
             .padding(20.dp)
             .height(IntrinsicSize.Min)
     ) {
@@ -67,7 +69,7 @@ fun ProductItem(
             Spacer(modifier = Modifier.weight(1f))
 
             if (count == 0) {
-                PriceButton(product.priceInKopecks, onClick = onPriceClick)
+                PriceButton(product.priceInKopecks, onClick = onItemClick)
             } else {
                 CounterButtons(
                     count = count,

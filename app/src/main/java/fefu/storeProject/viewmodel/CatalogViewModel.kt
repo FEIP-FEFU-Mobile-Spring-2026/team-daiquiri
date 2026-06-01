@@ -19,7 +19,8 @@ sealed class CatalogUiState {
     data class Success(
         val categories: List<AppCategory>,
         val products: List<Product>,
-        val selectedCategoryId: String
+        val selectedCategoryId: String,
+        val isOffline: Boolean = false
     ) : CatalogUiState()
     data class Error(val message: String) : CatalogUiState()
 }
@@ -36,6 +37,7 @@ class CatalogViewModel(
 
     private var allProducts: List<Product> = emptyList()
     private var allCategories: List<AppCategory> = emptyList()
+    private var isCurrentlyOffline = false
 
     private var selectedCategoryId: String
         get() = savedStateHandle.get<String>(KEY_SELECTED_CATEGORY) ?: ProductRepository.NEW_CATEGORY_ID
@@ -48,13 +50,39 @@ class CatalogViewModel(
     fun loadCatalog() {
         viewModelScope.launch {
             _uiState.value = CatalogUiState.Loading
+            isCurrentlyOffline = false
+
+            val cached = withContext(Dispatchers.IO) { repository.loadFromCache() }
+            if (cached != null) {
+                allProducts = cached.products
+                allCategories = cached.categories
+                pushSuccessState()
+            }
+
+            val hasNetwork = withContext(Dispatchers.IO) { repository.isNetworkAvailable() }
+            if (!hasNetwork) {
+                isCurrentlyOffline = true
+                if (cached == null) {
+                    _uiState.value = CatalogUiState.Error("Нет подключения к сети")
+                } else {
+                    pushSuccessState()
+                }
+                return@launch
+            }
+
             try {
-                val data = withContext(Dispatchers.IO) { repository.loadCatalog() }
+                val data = withContext(Dispatchers.IO) { repository.loadFromNetwork() }
                 allProducts = data.products
                 allCategories = data.categories
+                isCurrentlyOffline = false
                 pushSuccessState()
             } catch (e: Exception) {
-                _uiState.value = CatalogUiState.Error(e.message ?: "Ошибка загрузки данных")
+                isCurrentlyOffline = true
+                if (cached == null) {
+                    _uiState.value = CatalogUiState.Error(e.message ?: "Ошибка загрузки данных")
+                } else {
+                    pushSuccessState()
+                }
             }
         }
     }
@@ -73,7 +101,8 @@ class CatalogViewModel(
         _uiState.value = CatalogUiState.Success(
             categories = allCategories,
             products = filtered,
-            selectedCategoryId = selectedCategoryId
+            selectedCategoryId = selectedCategoryId,
+            isOffline = isCurrentlyOffline
         )
     }
 

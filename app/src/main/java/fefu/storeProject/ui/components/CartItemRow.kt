@@ -57,8 +57,9 @@ fun CartItemRow(
                 fontWeight = FontWeight.Bold
             )
             Text(
-                text = "${cartItem.color.name}, ${cartItem.size.name}",
-                fontSize = 12.sp
+                text = cartItem.size.name,
+                fontSize = 12.sp,
+                color = Color.Gray
             )
             Box(
                 modifier = Modifier
@@ -66,7 +67,7 @@ fun CartItemRow(
                     .padding(horizontal = 16.dp, vertical = 8.dp)
             ) {
                 Text(
-                    text = formatRubles(cartItem.product.priceInKopecks),
+                    text = formatRubles(cartItem.product.priceInKopecks * count),
                     fontWeight = FontWeight.Medium,
                     color = BrownPrimary
                 )
@@ -78,7 +79,7 @@ fun CartItemRow(
             onDecrement = { cartViewModel.decrement(cartItem) }
         )
         IconButton(onClick = { cartViewModel.removeItem(cartItem) }) {
-            Icon(Icons.Default.Close, contentDescription = "Remove")
+            Icon(Icons.Default.Close, contentDescription = "Удалить")
         }
     }
 }

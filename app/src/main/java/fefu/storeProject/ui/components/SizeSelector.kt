@@ -11,13 +11,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import fefu.storeProject.ui.theme.BrownPrimary
 import androidx.compose.ui.unit.dp
-import fefu.storeProject.data.Size
+import fefu.storeProject.data.ProductSize
 
 @Composable
 fun SizeSelector(
-    sizes: List<Size>,
-    selected: Size,
-    onSelect: (Size) -> Unit
+    sizes: List<ProductSize>,
+    selected: ProductSize?,
+    onSelect: (ProductSize) -> Unit
 ) {
     Row {
         sizes.forEach { size ->
@@ -36,4 +36,3 @@ fun SizeSelector(
         }
     }
 }
-

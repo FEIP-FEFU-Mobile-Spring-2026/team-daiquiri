@@ -35,7 +35,10 @@ class CatalogViewModel(
     private val _uiState = MutableStateFlow<CatalogUiState>(CatalogUiState.Loading)
     val uiState: StateFlow<CatalogUiState> = _uiState.asStateFlow()
 
-    private var allProducts: List<Product> = emptyList()
+    private val _allProducts = MutableStateFlow<List<Product>>(emptyList())
+    val allProducts: StateFlow<List<Product>> = _allProducts.asStateFlow()
+
+    private var allProductsList: List<Product> = emptyList()
     private var allCategories: List<AppCategory> = emptyList()
     private var isCurrentlyOffline = false
 
@@ -54,7 +57,8 @@ class CatalogViewModel(
 
             val cached = withContext(Dispatchers.IO) { repository.loadFromCache() }
             if (cached != null) {
-                allProducts = cached.products
+                allProductsList = cached.products
+                _allProducts.value = allProductsList
                 allCategories = cached.categories
                 pushSuccessState()
             }
@@ -72,7 +76,8 @@ class CatalogViewModel(
 
             try {
                 val data = withContext(Dispatchers.IO) { repository.loadFromNetwork() }
-                allProducts = data.products
+                allProductsList = data.products
+                _allProducts.value = allProductsList
                 allCategories = data.categories
                 isCurrentlyOffline = false
                 pushSuccessState()
@@ -94,9 +99,9 @@ class CatalogViewModel(
 
     private fun pushSuccessState() {
         val filtered = if (selectedCategoryId == ProductRepository.NEW_CATEGORY_ID) {
-            allProducts.filter { it.tags.contains("New") }
+            allProductsList.filter { it.tags.contains("New") }
         } else {
-            allProducts.filter { it.categoryId == selectedCategoryId }
+            allProductsList.filter { it.categoryId == selectedCategoryId }
         }
         _uiState.value = CatalogUiState.Success(
             categories = allCategories,

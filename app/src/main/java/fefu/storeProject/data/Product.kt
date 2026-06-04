@@ -5,6 +5,11 @@ import fefu.storeProject.ui.theme.BrownPrimary
 import java.text.NumberFormat
 import java.util.Locale
 
+data class ProductSize(
+    val id: String,
+    val name: String
+)
+
 data class Product(
     val id: String,
     val name: String,
@@ -14,7 +19,7 @@ data class Product(
     val imageUrl: String,
     val tags: List<String>,
     val categoryId: String,
-    val sizes: List<String>,
+    val sizes: List<ProductSize>,
     val material: String,
     val weight: String,
     val season: String,
@@ -25,10 +30,6 @@ data class AppCategory(
     val id: String,
     val name: String
 )
-
-enum class Size {
-    XXS, XS, S, M, L, XL
-}
 
 data class ProductColor(
     val name: String,

@@ -7,6 +7,7 @@ import fefu.storeProject.data.api.RetrofitInstance
 import fefu.storeProject.data.db.AppDatabase
 import fefu.storeProject.data.db.CategoryEntity
 import fefu.storeProject.data.db.ProductEntity
+import fefu.storeProject.data.ProductSize
 
 class ProductRepository(private val context: Context) {
 
@@ -46,7 +47,7 @@ class ProductRepository(private val context: Context) {
                     imageUrl = dto.imageUrl,
                     tags = dto.tags.joinToString("|"),
                     categoryId = dto.categoryId,
-                    sizes = dto.sizes.joinToString("|") { it.name },
+                    sizes = dto.sizes.joinToString("|") { "${it.id}:${it.name}" },
                     material = dto.material,
                     weight = dto.weight,
                     season = dto.season,
@@ -68,7 +69,7 @@ class ProductRepository(private val context: Context) {
                     imageUrl = dto.imageUrl,
                     tags = dto.tags,
                     categoryId = dto.categoryId,
-                    sizes = dto.sizes.map { it.name },
+                    sizes = dto.sizes.map { ProductSize(it.id, it.name) },
                     material = dto.material,
                     weight = dto.weight,
                     season = dto.season,

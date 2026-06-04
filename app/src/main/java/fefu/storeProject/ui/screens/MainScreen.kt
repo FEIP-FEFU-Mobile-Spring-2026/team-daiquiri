@@ -133,6 +133,7 @@ fun MainScreen(
     if (isSheetOpen && selectedProduct != null) {
         ProductBottomSheet(
             product = selectedProduct,
+            cartViewModel = cartViewModel,
             onDismiss = { isSheetOpen = false }
         )
     }

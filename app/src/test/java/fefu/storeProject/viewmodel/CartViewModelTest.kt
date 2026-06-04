@@ -1,10 +1,8 @@
 package fefu.storeProject.viewmodel
 
-import androidx.compose.ui.graphics.Color
 import fefu.storeProject.data.CartItem
 import fefu.storeProject.data.Product
-import fefu.storeProject.data.ProductColor
-import fefu.storeProject.data.Size
+import fefu.storeProject.data.ProductSize
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -46,8 +44,7 @@ class CartViewModelTest {
         countryOfOrigin = ""
     )
 
-    private val color = ProductColor("Black", Color.Black)
-    private val size = Size.M
+    private val size = ProductSize("size_m", "M")
 
     @Before
     fun setUp() {
@@ -63,21 +60,21 @@ class CartViewModelTest {
 
     @Test
     fun getTotalPrice_singleItem_returnsItemPrice() {
-        viewModel.addToCart(product1, size, color)
+        viewModel.addToCart(product1, size)
         assertEquals(100L, viewModel.getTotalPrice())
     }
 
     @Test
     fun getTotalPrice_sameItemAddedTwice_returnsDoubledPrice() {
-        viewModel.addToCart(product1, size, color)
-        viewModel.addToCart(product1, size, color)
+        viewModel.addToCart(product1, size)
+        viewModel.addToCart(product1, size)
         assertEquals(200L, viewModel.getTotalPrice())
     }
 
     @Test
     fun getTotalPrice_differentProducts_returnsSumOfPrices() {
-        viewModel.addToCart(product1, size, color)
-        viewModel.addToCart(product2, size, color)
+        viewModel.addToCart(product1, size)
+        viewModel.addToCart(product2, size)
         assertEquals(300L, viewModel.getTotalPrice())
     }
 
@@ -85,23 +82,23 @@ class CartViewModelTest {
 
     @Test
     fun addToCart_newItem_itemAppearsInCart() {
-        viewModel.addToCart(product1, size, color)
-        val cartItem = CartItem(product1, size, color)
+        viewModel.addToCart(product1, size)
+        val cartItem = CartItem(product1, size)
         assertEquals(1, viewModel.getCount(cartItem))
     }
 
     @Test
     fun addToCart_sameItemTwice_countIsTwo() {
-        viewModel.addToCart(product1, size, color)
-        viewModel.addToCart(product1, size, color)
-        val cartItem = CartItem(product1, size, color)
+        viewModel.addToCart(product1, size)
+        viewModel.addToCart(product1, size)
+        val cartItem = CartItem(product1, size)
         assertEquals(2, viewModel.getCount(cartItem))
     }
 
     @Test
     fun addToCart_differentItems_bothPresentInCart() {
-        viewModel.addToCart(product1, size, color)
-        viewModel.addToCart(product2, size, color)
+        viewModel.addToCart(product1, size)
+        viewModel.addToCart(product2, size)
         assertEquals(2, viewModel.items.size)
     }
 
@@ -109,25 +106,25 @@ class CartViewModelTest {
 
     @Test
     fun removeFromCart_existingItem_itemRemovedFromCart() {
-        viewModel.addToCart(product1, size, color)
-        val cartItem = CartItem(product1, size, color)
+        viewModel.addToCart(product1, size)
+        val cartItem = CartItem(product1, size)
         viewModel.removeItem(cartItem)
         assertEquals(0, viewModel.getCount(cartItem))
     }
 
     @Test
     fun removeFromCart_onlyItem_cartBecomesEmpty() {
-        viewModel.addToCart(product1, size, color)
-        val cartItem = CartItem(product1, size, color)
+        viewModel.addToCart(product1, size)
+        val cartItem = CartItem(product1, size)
         viewModel.removeItem(cartItem)
         assertTrue(viewModel.items.isEmpty())
     }
 
     @Test
     fun removeFromCart_oneOfMultipleItems_otherItemsRemain() {
-        viewModel.addToCart(product1, size, color)
-        viewModel.addToCart(product2, size, color)
-        val cartItem1 = CartItem(product1, size, color)
+        viewModel.addToCart(product1, size)
+        viewModel.addToCart(product2, size)
+        val cartItem1 = CartItem(product1, size)
         viewModel.removeItem(cartItem1)
         assertEquals(1, viewModel.items.size)
     }

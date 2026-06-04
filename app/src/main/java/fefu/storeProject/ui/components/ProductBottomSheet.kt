@@ -40,18 +40,21 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import fefu.storeProject.data.Product
+import fefu.storeProject.data.ProductSize
 import fefu.storeProject.data.formatRubles
 import fefu.storeProject.ui.theme.BrownPrimary
+import fefu.storeProject.viewmodel.CartViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductBottomSheet(
     product: Product?,
+    cartViewModel: CartViewModel,
     onDismiss: () -> Unit
 ) {
     if (product == null) return
 
-    var selectedSize by remember(product.id) { mutableStateOf(product.sizes.firstOrNull() ?: "") }
+    var selectedSize by remember(product.id) { mutableStateOf(product.sizes.firstOrNull()) }
     var showInfoDialog by remember { mutableStateOf(false) }
 
     if (showInfoDialog) {
@@ -163,7 +166,7 @@ fun ProductBottomSheet(
                                 .padding(horizontal = 14.dp, vertical = 8.dp)
                         ) {
                             Text(
-                                text = size,
+                                text = size.name,
                                 color = if (isSelected) Color.White else Color.Black,
                                 fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal
                             )
@@ -177,7 +180,11 @@ fun ProductBottomSheet(
             Button(
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(containerColor = BrownPrimary),
-                onClick = onDismiss
+                onClick = {
+                    val size = selectedSize ?: ProductSize("", "")
+                    cartViewModel.addToCart(product, size)
+                    onDismiss()
+                }
             ) {
                 Text("В корзину · ${formatRubles(product.priceInKopecks)}")
             }

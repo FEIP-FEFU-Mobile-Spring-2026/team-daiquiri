@@ -10,7 +10,7 @@ import fefu.storeProject.viewmodel.CartViewModel
 fun ProductList(
     products: List<Product>,
     cartViewModel: CartViewModel,
-    onItemClick: (Product) -> Unit
+    onItemClick: (Product) -> Unit,
 ) {
     LazyColumn {
         items(products) { product ->
@@ -21,7 +21,7 @@ fun ProductList(
                 count = count,
                 onItemClick = { onItemClick(product) },
                 onIncrement = { cartViewModel.incrementProduct(product) },
-                onDecrement = { cartViewModel.decrementProduct(product) }
+                onDecrement = { cartViewModel.decrementProduct(product) },
             )
         }
     }

@@ -21,18 +21,18 @@ import fefu.storeProject.ui.theme.BrownPrimary
 fun CategoryRow(
     categories: List<AppCategory>,
     selectedCategoryId: String,
-    onCategorySelected: (String) -> Unit
+    onCategorySelected: (String) -> Unit,
 ) {
     LazyRow(
         contentPadding = PaddingValues(horizontal = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
-        modifier = Modifier.padding(vertical = 16.dp)
+        modifier = Modifier.padding(vertical = 16.dp),
     ) {
         items(categories) { category ->
             CategoryChip(
                 text = category.name,
                 isSelected = selectedCategoryId == category.id,
-                onClick = { onCategorySelected(category.id) }
+                onClick = { onCategorySelected(category.id) },
             )
         }
     }
@@ -42,20 +42,21 @@ fun CategoryRow(
 fun CategoryChip(
     text: String,
     isSelected: Boolean,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     Box(
-        modifier = Modifier
-            .background(
-                color = if (isSelected) BrownPrimary else Color(0xFFF5F5F5),
-                shape = RoundedCornerShape(16.dp)
-            )
-            .clickable { onClick() }
-            .padding(horizontal = 16.dp, vertical = 8.dp)
+        modifier =
+            Modifier
+                .background(
+                    color = if (isSelected) BrownPrimary else Color(0xFFF5F5F5),
+                    shape = RoundedCornerShape(16.dp),
+                )
+                .clickable { onClick() }
+                .padding(horizontal = 16.dp, vertical = 8.dp),
     ) {
         Text(
             text = text,
-            color = if (isSelected) Color.White else Color.Black
+            color = if (isSelected) Color.White else Color.Black,
         )
     }
 }

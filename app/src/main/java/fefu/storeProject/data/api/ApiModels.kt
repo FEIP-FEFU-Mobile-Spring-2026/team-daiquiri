@@ -4,12 +4,12 @@ import com.google.gson.annotations.SerializedName
 
 data class CatalogResponse(
     @SerializedName("categories") val categories: List<CategoryDto>,
-    @SerializedName("items") val items: List<ProductDto>
+    @SerializedName("items") val items: List<ProductDto>,
 )
 
 data class CategoryDto(
     @SerializedName("id") val id: String,
-    @SerializedName("name") val name: String
+    @SerializedName("name") val name: String,
 )
 
 data class ProductDto(
@@ -25,10 +25,10 @@ data class ProductDto(
     @SerializedName("material") val material: String,
     @SerializedName("weight") val weight: String,
     @SerializedName("season") val season: String,
-    @SerializedName("countryOfOrigin") val countryOfOrigin: String
+    @SerializedName("countryOfOrigin") val countryOfOrigin: String,
 )
 
 data class SizeDto(
     @SerializedName("id") val id: String,
-    @SerializedName("name") val name: String
+    @SerializedName("name") val name: String,
 )

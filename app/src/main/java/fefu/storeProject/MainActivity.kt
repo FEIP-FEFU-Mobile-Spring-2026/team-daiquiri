@@ -6,10 +6,10 @@ import androidx.activity.compose.setContent
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
@@ -31,9 +31,10 @@ class MainActivity : ComponentActivity() {
             StoreProjectTheme {
                 val navController = rememberNavController()
                 val cartDao = AppDatabase.getInstance(applicationContext).cartDao()
-                val cartViewModel: CartViewModel = viewModel(
-                    factory = CartViewModel.factory(cartDao)
-                )
+                val cartViewModel: CartViewModel =
+                    viewModel(
+                        factory = CartViewModel.factory(cartDao),
+                    )
                 val catalogViewModel: CatalogViewModel = viewModel()
 
                 val allProducts by catalogViewModel.allProducts.collectAsState()
@@ -44,7 +45,7 @@ class MainActivity : ComponentActivity() {
                 }
 
                 Scaffold(
-                    bottomBar = { BottomBar(navController = navController, cartViewModel = cartViewModel) }
+                    bottomBar = { BottomBar(navController = navController, cartViewModel = cartViewModel) },
                 ) { padding ->
                     NavHost(
                         navController = navController,

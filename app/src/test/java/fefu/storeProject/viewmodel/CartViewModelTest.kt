@@ -9,40 +9,41 @@ import org.junit.Before
 import org.junit.Test
 
 class CartViewModelTest {
-
     private lateinit var viewModel: CartViewModel
 
-    private val product1 = Product(
-        id = "1",
-        name = "Product 1",
-        shortDescription = "Short description",
-        longDescription = "Long description",
-        priceInKopecks = 10000L,
-        imageUrl = "",
-        tags = emptyList(),
-        categoryId = "",
-        sizes = emptyList(),
-        material = "",
-        weight = "",
-        season = "",
-        countryOfOrigin = ""
-    )
+    private val product1 =
+        Product(
+            id = "1",
+            name = "Product 1",
+            shortDescription = "Short description",
+            longDescription = "Long description",
+            priceInKopecks = 10000L,
+            imageUrl = "",
+            tags = emptyList(),
+            categoryId = "",
+            sizes = emptyList(),
+            material = "",
+            weight = "",
+            season = "",
+            countryOfOrigin = "",
+        )
 
-    private val product2 = Product(
-        id = "2",
-        name = "Product 2",
-        shortDescription = "Short description",
-        longDescription = "Long description",
-        priceInKopecks = 20000L,
-        imageUrl = "",
-        tags = emptyList(),
-        categoryId = "",
-        sizes = emptyList(),
-        material = "",
-        weight = "",
-        season = "",
-        countryOfOrigin = ""
-    )
+    private val product2 =
+        Product(
+            id = "2",
+            name = "Product 2",
+            shortDescription = "Short description",
+            longDescription = "Long description",
+            priceInKopecks = 20000L,
+            imageUrl = "",
+            tags = emptyList(),
+            categoryId = "",
+            sizes = emptyList(),
+            material = "",
+            weight = "",
+            season = "",
+            countryOfOrigin = "",
+        )
 
     private val size = ProductSize("size_m", "M")
 

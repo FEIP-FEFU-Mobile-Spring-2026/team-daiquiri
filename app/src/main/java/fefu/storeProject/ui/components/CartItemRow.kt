@@ -34,49 +34,52 @@ import fefu.storeProject.viewmodel.CartViewModel
 fun CartItemRow(
     cartItem: CartItem,
     count: Int,
-    cartViewModel: CartViewModel
+    cartViewModel: CartViewModel,
 ) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        verticalAlignment = Alignment.CenterVertically
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         AsyncImage(
             model = cartItem.product.imageUrl,
             contentDescription = null,
             contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .size(80.dp)
-                .clip(RoundedCornerShape(8.dp))
+            modifier =
+                Modifier
+                    .size(80.dp)
+                    .clip(RoundedCornerShape(8.dp)),
         )
         Spacer(modifier = Modifier.width(16.dp))
         Column(modifier = Modifier.weight(1f)) {
             Text(
                 text = cartItem.product.name,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
             )
             Text(
                 text = cartItem.size.name,
                 fontSize = 12.sp,
-                color = Color.Gray
+                color = Color.Gray,
             )
             Box(
-                modifier = Modifier
-                    .background(Color.White, RoundedCornerShape(12.dp))
-                    .padding(horizontal = 16.dp, vertical = 8.dp)
+                modifier =
+                    Modifier
+                        .background(Color.White, RoundedCornerShape(12.dp))
+                        .padding(horizontal = 16.dp, vertical = 8.dp),
             ) {
                 Text(
                     text = formatRubles(cartItem.product.priceInKopecks * count),
                     fontWeight = FontWeight.Medium,
-                    color = BrownPrimary
+                    color = BrownPrimary,
                 )
             }
         }
         CounterButtons(
             count = count,
             onIncrement = { cartViewModel.increment(cartItem) },
-            onDecrement = { cartViewModel.decrement(cartItem) }
+            onDecrement = { cartViewModel.decrement(cartItem) },
         )
         IconButton(onClick = { cartViewModel.removeItem(cartItem) }) {
             Icon(Icons.Default.Close, contentDescription = "Удалить")

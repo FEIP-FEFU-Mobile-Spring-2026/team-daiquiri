@@ -19,22 +19,23 @@ import fefu.storeProject.data.ProductColor
 fun ColorSelector(
     colors: List<ProductColor>,
     selected: ProductColor,
-    onSelect: (ProductColor) -> Unit
+    onSelect: (ProductColor) -> Unit,
 ) {
     Row {
         colors.forEach { productColor ->
             Box(
-                modifier = Modifier
-                    .padding(6.dp)
-                    .size(36.dp)
-                    .clip(CircleShape)
-                    .background(productColor.color)
-                    .border(
-                        width = if (selected == productColor) 2.dp else 1.dp,
-                        color = if (selected == productColor) Color.Black else Color.LightGray,
-                        shape = CircleShape
-                    )
-                    .clickable { onSelect(productColor) }
+                modifier =
+                    Modifier
+                        .padding(6.dp)
+                        .size(36.dp)
+                        .clip(CircleShape)
+                        .background(productColor.color)
+                        .border(
+                            width = if (selected == productColor) 2.dp else 1.dp,
+                            color = if (selected == productColor) Color.Black else Color.LightGray,
+                            shape = CircleShape,
+                        )
+                        .clickable { onSelect(productColor) },
             )
         }
     }

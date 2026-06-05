@@ -55,9 +55,7 @@
 
 | Экран каталога | Детали товара | Корзина |
 |---|---|---|
-| ![catalog](docs/screenshots/catalog.png) | ![detail](docs/screenshots/detail.png) | ![cart](docs/screenshots/cart.png) |
-
-> Скриншоты сделаны на эмуляторе Pixel 8, Android 14.
+| ![catalog](docs/screenshots/catalog.jpg) | ![detail](docs/screenshots/detail.jpg) | ![cart](docs/screenshots/cart.jpg) |
 
 ---
 

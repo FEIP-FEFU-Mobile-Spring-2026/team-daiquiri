@@ -16,20 +16,21 @@ import kotlinx.coroutines.withContext
 
 sealed class CatalogUiState {
     data object Loading : CatalogUiState()
+
     data class Success(
         val categories: List<AppCategory>,
         val products: List<Product>,
         val selectedCategoryId: String,
-        val isOffline: Boolean = false
+        val isOffline: Boolean = false,
     ) : CatalogUiState()
+
     data class Error(val message: String) : CatalogUiState()
 }
 
 class CatalogViewModel(
     application: Application,
-    private val savedStateHandle: SavedStateHandle
+    private val savedStateHandle: SavedStateHandle,
 ) : AndroidViewModel(application) {
-
     private val repository = ProductRepository(application)
 
     private val _uiState = MutableStateFlow<CatalogUiState>(CatalogUiState.Loading)
@@ -44,7 +45,9 @@ class CatalogViewModel(
 
     private var selectedCategoryId: String
         get() = savedStateHandle.get<String>(KEY_SELECTED_CATEGORY) ?: ProductRepository.NEW_CATEGORY_ID
-        set(value) { savedStateHandle[KEY_SELECTED_CATEGORY] = value }
+        set(value) {
+            savedStateHandle[KEY_SELECTED_CATEGORY] = value
+        }
 
     init {
         loadCatalog()
@@ -98,17 +101,19 @@ class CatalogViewModel(
     }
 
     private fun pushSuccessState() {
-        val filtered = if (selectedCategoryId == ProductRepository.NEW_CATEGORY_ID) {
-            allProductsList.filter { it.tags.contains("New") }
-        } else {
-            allProductsList.filter { it.categoryId == selectedCategoryId }
-        }
-        _uiState.value = CatalogUiState.Success(
-            categories = allCategories,
-            products = filtered,
-            selectedCategoryId = selectedCategoryId,
-            isOffline = isCurrentlyOffline
-        )
+        val filtered =
+            if (selectedCategoryId == ProductRepository.NEW_CATEGORY_ID) {
+                allProductsList.filter { it.tags.contains("New") }
+            } else {
+                allProductsList.filter { it.categoryId == selectedCategoryId }
+            }
+        _uiState.value =
+            CatalogUiState.Success(
+                categories = allCategories,
+                products = filtered,
+                selectedCategoryId = selectedCategoryId,
+                isOffline = isCurrentlyOffline,
+            )
     }
 
     companion object {

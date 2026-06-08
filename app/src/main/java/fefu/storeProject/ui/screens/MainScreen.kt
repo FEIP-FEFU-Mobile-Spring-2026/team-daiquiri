@@ -46,7 +46,7 @@ import fefu.storeProject.viewmodel.CatalogViewModel
 fun MainScreen(
     navController: NavHostController,
     cartViewModel: CartViewModel,
-    catalogViewModel: CatalogViewModel
+    catalogViewModel: CatalogViewModel,
 ) {
     val uiState by catalogViewModel.uiState.collectAsState()
     var selectedProduct by remember { mutableStateOf<Product?>(null) }
@@ -57,7 +57,7 @@ fun MainScreen(
             is CatalogUiState.Loading -> {
                 Box(
                     modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
+                    contentAlignment = Alignment.Center,
                 ) {
                     CircularProgressIndicator(color = BrownPrimary)
                 }
@@ -66,21 +66,21 @@ fun MainScreen(
             is CatalogUiState.Error -> {
                 Box(
                     modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
+                    contentAlignment = Alignment.Center,
                 ) {
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
-                        modifier = Modifier.padding(32.dp)
+                        modifier = Modifier.padding(32.dp),
                     ) {
                         Text(
                             text = state.message,
                             color = MaterialTheme.colorScheme.error,
-                            textAlign = TextAlign.Center
+                            textAlign = TextAlign.Center,
                         )
                         Spacer(Modifier.height(16.dp))
                         Button(
                             onClick = { catalogViewModel.loadCatalog() },
-                            colors = ButtonDefaults.buttonColors(containerColor = BrownPrimary)
+                            colors = ButtonDefaults.buttonColors(containerColor = BrownPrimary),
                         ) {
                             Text("Повторить")
                         }
@@ -91,31 +91,32 @@ fun MainScreen(
             is CatalogUiState.Success -> {
                 if (state.isOffline) {
                     Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .background(Color(0xFF616161))
-                            .padding(horizontal = 16.dp, vertical = 6.dp),
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .background(Color(0xFF616161))
+                                .padding(horizontal = 16.dp, vertical = 6.dp),
                         horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.CenterVertically
+                        verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Icon(
                             imageVector = Icons.Default.WifiOff,
                             contentDescription = null,
                             tint = Color.White,
-                            modifier = Modifier.size(14.dp)
+                            modifier = Modifier.size(14.dp),
                         )
                         Spacer(Modifier.width(6.dp))
                         Text(
                             text = "Нет сети",
                             color = Color.White,
-                            style = MaterialTheme.typography.bodySmall
+                            style = MaterialTheme.typography.bodySmall,
                         )
                     }
                 }
                 CategoryRow(
                     categories = state.categories,
                     selectedCategoryId = state.selectedCategoryId,
-                    onCategorySelected = { catalogViewModel.selectCategory(it) }
+                    onCategorySelected = { catalogViewModel.selectCategory(it) },
                 )
                 HorizontalDivider()
                 ProductList(
@@ -124,7 +125,7 @@ fun MainScreen(
                         selectedProduct = it
                         isSheetOpen = true
                     },
-                    cartViewModel = cartViewModel
+                    cartViewModel = cartViewModel,
                 )
             }
         }
@@ -134,7 +135,7 @@ fun MainScreen(
         ProductBottomSheet(
             product = selectedProduct,
             cartViewModel = cartViewModel,
-            onDismiss = { isSheetOpen = false }
+            onDismiss = { isSheetOpen = false },
         )
     }
 }

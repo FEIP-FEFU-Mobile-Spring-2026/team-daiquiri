@@ -50,7 +50,7 @@ import fefu.storeProject.viewmodel.CartViewModel
 fun ProductBottomSheet(
     product: Product?,
     cartViewModel: CartViewModel,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
 ) {
     if (product == null) return
 
@@ -71,52 +71,57 @@ fun ProductBottomSheet(
             },
             confirmButton = {
                 TextButton(onClick = { showInfoDialog = false }) { Text("ОК") }
-            }
+            },
         )
     }
 
     ModalBottomSheet(onDismissRequest = onDismiss) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .verticalScroll(rememberScrollState())
-                .padding(16.dp)
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .verticalScroll(rememberScrollState())
+                    .padding(16.dp),
         ) {
             Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(240.dp)
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .height(240.dp),
             ) {
                 AsyncImage(
                     model = product.imageUrl,
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .clip(RoundedCornerShape(12.dp))
+                    modifier =
+                        Modifier
+                            .fillMaxSize()
+                            .clip(RoundedCornerShape(12.dp)),
                 )
 
                 if (product.tags.isNotEmpty()) {
                     Row(
-                        modifier = Modifier
-                            .align(Alignment.TopStart)
-                            .padding(8.dp),
-                        horizontalArrangement = Arrangement.spacedBy(4.dp)
+                        modifier =
+                            Modifier
+                                .align(Alignment.TopStart)
+                                .padding(8.dp),
+                        horizontalArrangement = Arrangement.spacedBy(4.dp),
                     ) {
                         product.tags.forEach { tag ->
                             Box(
-                                modifier = Modifier
-                                    .background(
-                                        color = BrownPrimary.copy(alpha = 0.85f),
-                                        shape = RoundedCornerShape(12.dp)
-                                    )
-                                    .padding(horizontal = 10.dp, vertical = 4.dp)
+                                modifier =
+                                    Modifier
+                                        .background(
+                                            color = BrownPrimary.copy(alpha = 0.85f),
+                                            shape = RoundedCornerShape(12.dp),
+                                        )
+                                        .padding(horizontal = 10.dp, vertical = 4.dp),
                             ) {
                                 Text(
                                     text = tag,
                                     color = Color.White,
                                     fontSize = 11.sp,
-                                    fontWeight = FontWeight.Bold
+                                    fontWeight = FontWeight.Bold,
                                 )
                             }
                         }
@@ -125,12 +130,12 @@ fun ProductBottomSheet(
 
                 IconButton(
                     onClick = { showInfoDialog = true },
-                    modifier = Modifier.align(Alignment.TopEnd)
+                    modifier = Modifier.align(Alignment.TopEnd),
                 ) {
                     Icon(
                         imageVector = Icons.Outlined.Info,
                         contentDescription = "Информация о товаре",
-                        tint = Color.White
+                        tint = Color.White,
                     )
                 }
             }
@@ -143,7 +148,7 @@ fun ProductBottomSheet(
                 text = formatRubles(product.priceInKopecks),
                 fontSize = 18.sp,
                 color = BrownPrimary,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.SemiBold,
             )
             Spacer(Modifier.height(6.dp))
             Text(product.longDescription, color = Color.Gray, fontSize = 14.sp, lineHeight = 20.sp)
@@ -157,18 +162,19 @@ fun ProductBottomSheet(
                         val isSelected = size == selectedSize
                         Box(
                             contentAlignment = Alignment.Center,
-                            modifier = Modifier
-                                .background(
-                                    color = if (isSelected) BrownPrimary else Color.LightGray,
-                                    shape = RoundedCornerShape(8.dp)
-                                )
-                                .clickable { selectedSize = size }
-                                .padding(horizontal = 14.dp, vertical = 8.dp)
+                            modifier =
+                                Modifier
+                                    .background(
+                                        color = if (isSelected) BrownPrimary else Color.LightGray,
+                                        shape = RoundedCornerShape(8.dp),
+                                    )
+                                    .clickable { selectedSize = size }
+                                    .padding(horizontal = 14.dp, vertical = 8.dp),
                         ) {
                             Text(
                                 text = size.name,
                                 color = if (isSelected) Color.White else Color.Black,
-                                fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal
+                                fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
                             )
                         }
                     }
@@ -184,7 +190,7 @@ fun ProductBottomSheet(
                     val size = selectedSize ?: ProductSize("", "")
                     cartViewModel.addToCart(product, size)
                     onDismiss()
-                }
+                },
             ) {
                 Text("В корзину · ${formatRubles(product.priceInKopecks)}")
             }
@@ -195,10 +201,13 @@ fun ProductBottomSheet(
 }
 
 @Composable
-private fun ProductInfoRow(label: String, value: String) {
+private fun ProductInfoRow(
+    label: String,
+    value: String,
+) {
     Row(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         Text(label, fontWeight = FontWeight.Medium, modifier = Modifier.weight(0.45f), color = Color.Gray)
         Text(value, modifier = Modifier.weight(0.55f))

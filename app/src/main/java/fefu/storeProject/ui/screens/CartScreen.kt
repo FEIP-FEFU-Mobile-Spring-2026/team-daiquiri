@@ -46,12 +46,14 @@ import fefu.storeProject.ui.theme.BrownPrimary
 import fefu.storeProject.viewmodel.CartViewModel
 import kotlinx.coroutines.launch
 
-private fun isValidEmail(email: String): Boolean =
-    Regex("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+\$").matches(email.trim())
+private fun isValidEmail(email: String): Boolean = Regex("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+\$").matches(email.trim())
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CartScreen(cartViewModel: CartViewModel, navController: NavHostController) {
+fun CartScreen(
+    cartViewModel: CartViewModel,
+    navController: NavHostController,
+) {
     val cartEntries = cartViewModel.items.toList()
     val scope = rememberCoroutineScope()
 
@@ -77,7 +79,7 @@ fun CartScreen(cartViewModel: CartViewModel, navController: NavHostController) {
             },
             dismissButton = {
                 TextButton(onClick = { showClearConfirm = false }) { Text("Отмена") }
-            }
+            },
         )
     }
 
@@ -88,19 +90,20 @@ fun CartScreen(cartViewModel: CartViewModel, navController: NavHostController) {
                 IconButton(onClick = { showClearConfirm = true }) {
                     Icon(
                         imageVector = Icons.Default.Delete,
-                        contentDescription = "Очистить корзину"
+                        contentDescription = "Очистить корзину",
                     )
                 }
-            }
+            },
         )
         HorizontalDivider()
 
         if (cartEntries.isEmpty()) {
             Box(
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxWidth(),
-                contentAlignment = Alignment.Center
+                modifier =
+                    Modifier
+                        .weight(1f)
+                        .fillMaxWidth(),
+                contentAlignment = Alignment.Center,
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Text("Корзина пуста", fontWeight = FontWeight.Bold, fontSize = 18.sp)
@@ -108,7 +111,7 @@ fun CartScreen(cartViewModel: CartViewModel, navController: NavHostController) {
                     Text(
                         "Добавьте товары для оформления заказа",
                         color = Color.Gray,
-                        fontSize = 14.sp
+                        fontSize = 14.sp,
                     )
                 }
             }
@@ -118,7 +121,7 @@ fun CartScreen(cartViewModel: CartViewModel, navController: NavHostController) {
                     CartItemRow(
                         cartItem = cartItem,
                         count = count,
-                        cartViewModel = cartViewModel
+                        cartViewModel = cartViewModel,
                     )
                     HorizontalDivider()
                 }
@@ -130,7 +133,7 @@ fun CartScreen(cartViewModel: CartViewModel, navController: NavHostController) {
                     onValueChange = { name = it },
                     label = { Text("Имя *") },
                     modifier = Modifier.fillMaxWidth(),
-                    singleLine = true
+                    singleLine = true,
                 )
                 Spacer(Modifier.height(8.dp))
                 OutlinedTextField(
@@ -139,7 +142,7 @@ fun CartScreen(cartViewModel: CartViewModel, navController: NavHostController) {
                     label = { Text("Email *") },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true,
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                 )
                 Spacer(Modifier.height(8.dp))
                 OutlinedTextField(
@@ -147,17 +150,17 @@ fun CartScreen(cartViewModel: CartViewModel, navController: NavHostController) {
                     onValueChange = { comment = it },
                     label = { Text("Комментарий") },
                     modifier = Modifier.fillMaxWidth(),
-                    maxLines = 3
+                    maxLines = 3,
                 )
                 Spacer(Modifier.height(12.dp))
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     Text("Итого", fontWeight = FontWeight.Bold)
                     Text(
                         formatRubles(cartViewModel.getTotalPriceInKopecks()),
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
                     )
                 }
                 Spacer(Modifier.height(8.dp))
@@ -168,7 +171,7 @@ fun CartScreen(cartViewModel: CartViewModel, navController: NavHostController) {
                     },
                     modifier = Modifier.fillMaxWidth(),
                     enabled = isFormValid,
-                    colors = ButtonDefaults.buttonColors(containerColor = BrownPrimary)
+                    colors = ButtonDefaults.buttonColors(containerColor = BrownPrimary),
                 ) {
                     Text("Оформить")
                 }
@@ -185,7 +188,7 @@ fun CartScreen(cartViewModel: CartViewModel, navController: NavHostController) {
                     isSuccessSheetOpen = false
                     navController.navigate("main")
                 }
-            }
+            },
         )
     }
 }

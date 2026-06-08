@@ -29,21 +29,23 @@ fun ProductItem(
     count: Int,
     onItemClick: () -> Unit,
     onIncrement: () -> Unit,
-    onDecrement: () -> Unit
+    onDecrement: () -> Unit,
 ) {
     Row(
-        modifier = Modifier
-            .clickable { onItemClick() }
-            .padding(20.dp)
-            .height(IntrinsicSize.Min)
+        modifier =
+            Modifier
+                .clickable { onItemClick() }
+                .padding(20.dp)
+                .height(IntrinsicSize.Min),
     ) {
         AsyncImage(
             model = product.imageUrl,
             contentDescription = null,
             contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .size(170.dp)
-                .clip(RoundedCornerShape(12.dp))
+            modifier =
+                Modifier
+                    .size(170.dp)
+                    .clip(RoundedCornerShape(12.dp)),
         )
 
         Spacer(modifier = Modifier.width(10.dp))
@@ -54,7 +56,7 @@ fun ProductItem(
                 fontWeight = FontWeight.Bold,
                 fontSize = 18.sp,
                 maxLines = 2,
-                overflow = TextOverflow.Ellipsis
+                overflow = TextOverflow.Ellipsis,
             )
 
             Text(
@@ -63,7 +65,7 @@ fun ProductItem(
                 fontSize = 12.sp,
                 lineHeight = 16.sp,
                 maxLines = 4,
-                overflow = TextOverflow.Ellipsis
+                overflow = TextOverflow.Ellipsis,
             )
 
             Spacer(modifier = Modifier.weight(1f))
@@ -74,7 +76,7 @@ fun ProductItem(
                 CounterButtons(
                     count = count,
                     onIncrement = onIncrement,
-                    onDecrement = onDecrement
+                    onDecrement = onDecrement,
                 )
             }
         }

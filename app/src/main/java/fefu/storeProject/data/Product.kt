@@ -7,7 +7,7 @@ import java.util.Locale
 
 data class ProductSize(
     val id: String,
-    val name: String
+    val name: String,
 )
 
 data class Product(
@@ -23,27 +23,28 @@ data class Product(
     val material: String,
     val weight: String,
     val season: String,
-    val countryOfOrigin: String
+    val countryOfOrigin: String,
 )
 
 data class AppCategory(
     val id: String,
-    val name: String
+    val name: String,
 )
 
 data class ProductColor(
     val name: String,
-    val color: Color
+    val color: Color,
 )
 
-val availableColors = listOf(
-    ProductColor("Черный", Color.Black),
-    ProductColor("Белый", Color.White),
-    ProductColor("Серый", Color.Gray),
-    ProductColor("Коричневый", BrownPrimary),
-    ProductColor("Бежевый", Color(0xFFD7CCC8)),
-    ProductColor("Темно-синий", Color(0xFF1A237E))
-)
+val availableColors =
+    listOf(
+        ProductColor("Черный", Color.Black),
+        ProductColor("Белый", Color.White),
+        ProductColor("Серый", Color.Gray),
+        ProductColor("Коричневый", BrownPrimary),
+        ProductColor("Бежевый", Color(0xFFD7CCC8)),
+        ProductColor("Темно-синий", Color(0xFF1A237E)),
+    )
 
 fun formatRubles(priceInKopecks: Long): String {
     val rubles = priceInKopecks / 100

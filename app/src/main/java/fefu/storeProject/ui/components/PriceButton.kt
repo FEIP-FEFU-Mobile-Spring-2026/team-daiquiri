@@ -19,24 +19,25 @@ import fefu.storeProject.ui.theme.BrownPrimary
 @Composable
 fun PriceButton(
     priceInKopecks: Long,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     Box(
-        modifier = Modifier
-            .height(ActionHeight)
-            .border(
-                1.dp,
-                Color(0xFFE0D4CC),
-                RoundedCornerShape(12.dp)
-            )
-            .clickable { onClick() }
-            .padding(horizontal = 16.dp),
-        contentAlignment = Alignment.Center
+        modifier =
+            Modifier
+                .height(ActionHeight)
+                .border(
+                    1.dp,
+                    Color(0xFFE0D4CC),
+                    RoundedCornerShape(12.dp),
+                )
+                .clickable { onClick() }
+                .padding(horizontal = 16.dp),
+        contentAlignment = Alignment.Center,
     ) {
         Text(
             text = formatRubles(priceInKopecks),
             fontWeight = FontWeight.Medium,
-            color = BrownPrimary
+            color = BrownPrimary,
         )
     }
 }

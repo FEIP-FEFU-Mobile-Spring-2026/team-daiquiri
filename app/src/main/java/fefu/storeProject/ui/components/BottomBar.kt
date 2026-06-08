@@ -19,7 +19,10 @@ import fefu.storeProject.viewmodel.CartViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BottomBar(navController: NavHostController, cartViewModel: CartViewModel) {
+fun BottomBar(
+    navController: NavHostController,
+    cartViewModel: CartViewModel,
+) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
     val totalItems = cartViewModel.getTotalItemCount()
@@ -37,7 +40,7 @@ fun BottomBar(navController: NavHostController, cartViewModel: CartViewModel) {
                 }
             },
             icon = { Icon(Icons.Default.Home, null) },
-            label = { Text("Меню") }
+            label = { Text("Меню") },
         )
         NavigationBarItem(
             selected = currentRoute == "cart",
@@ -59,7 +62,7 @@ fun BottomBar(navController: NavHostController, cartViewModel: CartViewModel) {
                     Icon(Icons.Default.ShoppingCart, null)
                 }
             },
-            label = { Text("Корзина") }
+            label = { Text("Корзина") },
         )
     }
 }

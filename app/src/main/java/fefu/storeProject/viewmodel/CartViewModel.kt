@@ -14,7 +14,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class CartViewModel(private val cartDao: CartDao? = null) : ViewModel() {
-
     private val _items = mutableStateMapOf<CartItem, Int>()
     val items: Map<CartItem, Int> get() = _items
 
@@ -44,17 +43,16 @@ class CartViewModel(private val cartDao: CartDao? = null) : ViewModel() {
                         id = "${item.product.id}_${item.size.id}",
                         productId = item.product.id,
                         sizeId = item.size.id,
-                        quantity = qty
+                        quantity = qty,
                     )
-                }
+                },
             )
         }
     }
 
     fun getCount(cartItem: CartItem): Int = _items[cartItem] ?: 0
 
-    fun getProductTotalCount(product: Product): Int =
-        _items.filter { it.key.product.id == product.id }.values.sum()
+    fun getProductTotalCount(product: Product): Int = _items.filter { it.key.product.id == product.id }.values.sum()
 
     fun increment(cartItem: CartItem) {
         _items[cartItem] = getCount(cartItem) + 1
@@ -71,16 +69,17 @@ class CartViewModel(private val cartDao: CartDao? = null) : ViewModel() {
         syncToDb()
     }
 
-    fun addToCart(product: Product, size: ProductSize) {
+    fun addToCart(
+        product: Product,
+        size: ProductSize,
+    ) {
         val cartItem = CartItem(product, size)
         increment(cartItem)
     }
 
-    fun getTotalPrice(): Long =
-        _items.entries.sumOf { it.key.product.priceInKopecks * it.value } / 100
+    fun getTotalPrice(): Long = _items.entries.sumOf { it.key.product.priceInKopecks * it.value } / 100
 
-    fun getTotalPriceInKopecks(): Long =
-        _items.entries.sumOf { it.key.product.priceInKopecks * it.value }
+    fun getTotalPriceInKopecks(): Long = _items.entries.sumOf { it.key.product.priceInKopecks * it.value }
 
     fun clearCart() {
         _items.clear()
@@ -108,8 +107,7 @@ class CartViewModel(private val cartDao: CartDao? = null) : ViewModel() {
         fun factory(cartDao: CartDao): ViewModelProvider.Factory =
             object : ViewModelProvider.Factory {
                 @Suppress("UNCHECKED_CAST")
-                override fun <T : ViewModel> create(modelClass: Class<T>): T =
-                    CartViewModel(cartDao) as T
+                override fun <T : ViewModel> create(modelClass: Class<T>): T = CartViewModel(cartDao) as T
             }
     }
 }

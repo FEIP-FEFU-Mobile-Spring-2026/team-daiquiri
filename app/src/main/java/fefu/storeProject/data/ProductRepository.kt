@@ -7,16 +7,14 @@ import fefu.storeProject.data.api.RetrofitInstance
 import fefu.storeProject.data.db.AppDatabase
 import fefu.storeProject.data.db.CategoryEntity
 import fefu.storeProject.data.db.ProductEntity
-import fefu.storeProject.data.ProductSize
 
 class ProductRepository(private val context: Context) {
-
     private val dao = AppDatabase.getInstance(context).catalogDao()
     private val apiService = RetrofitInstance.service
 
     data class CatalogData(
         val categories: List<AppCategory>,
-        val products: List<Product>
+        val products: List<Product>,
     )
 
     suspend fun loadFromCache(): CatalogData? {
@@ -24,9 +22,10 @@ class ProductRepository(private val context: Context) {
         if (productEntities.isEmpty()) return null
         val categoryEntities = dao.getAllCategories()
         return CatalogData(
-            categories = listOf(AppCategory(NEW_CATEGORY_ID, "Новинки")) +
-                categoryEntities.map { it.toAppCategory() },
-            products = productEntities.map { it.toProduct() }
+            categories =
+                listOf(AppCategory(NEW_CATEGORY_ID, "Новинки")) +
+                    categoryEntities.map { it.toAppCategory() },
+            products = productEntities.map { it.toProduct() },
         )
     }
 
@@ -51,31 +50,33 @@ class ProductRepository(private val context: Context) {
                     material = dto.material,
                     weight = dto.weight,
                     season = dto.season,
-                    countryOfOrigin = dto.countryOfOrigin
+                    countryOfOrigin = dto.countryOfOrigin,
                 )
-            }
+            },
         )
 
         return CatalogData(
-            categories = listOf(AppCategory(NEW_CATEGORY_ID, "Новинки")) +
-                response.categories.map { AppCategory(it.id, it.name) },
-            products = response.items.map { dto ->
-                Product(
-                    id = dto.id,
-                    name = dto.name,
-                    shortDescription = dto.shortDescription,
-                    longDescription = dto.longDescription,
-                    priceInKopecks = dto.priceInKopecks,
-                    imageUrl = dto.imageUrl,
-                    tags = dto.tags,
-                    categoryId = dto.categoryId,
-                    sizes = dto.sizes.map { ProductSize(it.id, it.name) },
-                    material = dto.material,
-                    weight = dto.weight,
-                    season = dto.season,
-                    countryOfOrigin = dto.countryOfOrigin
-                )
-            }
+            categories =
+                listOf(AppCategory(NEW_CATEGORY_ID, "Новинки")) +
+                    response.categories.map { AppCategory(it.id, it.name) },
+            products =
+                response.items.map { dto ->
+                    Product(
+                        id = dto.id,
+                        name = dto.name,
+                        shortDescription = dto.shortDescription,
+                        longDescription = dto.longDescription,
+                        priceInKopecks = dto.priceInKopecks,
+                        imageUrl = dto.imageUrl,
+                        tags = dto.tags,
+                        categoryId = dto.categoryId,
+                        sizes = dto.sizes.map { ProductSize(it.id, it.name) },
+                        material = dto.material,
+                        weight = dto.weight,
+                        season = dto.season,
+                        countryOfOrigin = dto.countryOfOrigin,
+                    )
+                },
         )
     }
 
